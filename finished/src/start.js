@@ -8,6 +8,7 @@ import Dog from './resolvers/Dog';
 import Human from './resolvers/Human';
 import DogModel from './models/Dog';
 import HumanModel from './models/Human';
+import makeDataLoaders from './lib/makeDataLoaders';
 
 // import environmental variables from our variables.env file
 dotenv.config();
@@ -33,10 +34,11 @@ const server = new ApolloServer({
 	engine: {
 		apiKey: process.env.APOLLO_API_KEY,
 	},
-	context: {
+	context: () => ({
 		dogs: DogModel,
 		humans: HumanModel,
-	},
+		dataLoaders: makeDataLoaders(),
+	}),
 });
 
 server.listen(7788).then(() => {

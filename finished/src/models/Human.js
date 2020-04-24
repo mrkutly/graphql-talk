@@ -13,4 +13,12 @@ const humanSchema = new Schema({
 	}],
 });
 
+humanSchema.pre('findOne', () => {
+	console.log('Ran a findOne Human query.');
+});
+
+humanSchema.pre('find', () => {
+	console.log('Ran a find Human query.');
+});
+
 export default model('Human', humanSchema);

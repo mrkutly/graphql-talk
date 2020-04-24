@@ -4,15 +4,15 @@ import Human from '../models/Human';
 
 export default {
 	async allDogs() {
-		let dogs = await Dog.find({});
+		const dogs = await Dog.find({});
 		return dogs;
 	},
 
 	async dogsWhere(parent, args) {
-		let { name, breed, id } = args;
-		id = new Types.ObjectId(id);
+		const { name, breed } = args;
+		const id = new Types.ObjectId(args.id);
 
-		let dogs = await Dog.find({
+		const dogs = await Dog.find({
 			$or: [
 				{ name },
 				{ breed },
@@ -23,13 +23,13 @@ export default {
 	},
 
 	async dogWhereID(parent, args) {
-		let id = new Types.ObjectId(args.id);
-		let dog = await Dog.findOne({ _id: id });
+		const id = new Types.ObjectId(args.id);
+		const dog = await Dog.findOne({ _id: id });
 		return dog;
 	},
 
 	async allHumans() {
-		let humans = await Human.find({});
+		const humans = await Human.find({});
 		return humans;
 	},
 };

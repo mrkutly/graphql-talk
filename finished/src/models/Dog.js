@@ -18,4 +18,12 @@ const dogSchema = new Schema({
 	},
 });
 
+dogSchema.pre('findOne', () => {
+	console.log('Ran a findOne Dog query.');
+});
+
+dogSchema.pre('find', () => {
+	console.log('Ran a find Dog query.');
+});
+
 export default model('Dog', dogSchema);

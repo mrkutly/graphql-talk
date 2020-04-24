@@ -2,28 +2,28 @@ import { Types } from 'mongoose';
 
 export default {
 	async createHuman(parent, args, ctx) {
-		let human = await ctx.humans.create({ name: args.name });
+		const human = await ctx.humans.create({ name: args.name });
 		return human;
 	},
 
 	async createDog(parent, args, ctx) {
-		let { name, breed } = args;
+		const { name, breed } = args;
 		let human = null;
 
 		if (args.human) {
 			human = await ctx.humans.findOne(args.human);
 		}
 
-		let dog = await ctx.dogs.create({ name, breed, human });
+		const dog = await ctx.dogs.create({ name, breed, human });
 		return dog;
 	},
 
 	async updateDog(parent, args, ctx) {
-		let id = new Types.ObjectId(args.id);
+		const id = new Types.ObjectId(args.id);
 		let human = null;
 
 		if (args.human) {
-			let humanId = new Types.ObjectId(args.human.id);
+			const humanId = new Types.ObjectId(args.human.id);
 
 			human = await ctx.humans.findOne({
 				$or: [
@@ -33,7 +33,7 @@ export default {
 			});
 		}
 
-		let updateOptions = { ...args };
+		const updateOptions = { ...args };
 		delete updateOptions.human;
 		delete updateOptions.id;
 
@@ -41,13 +41,13 @@ export default {
 			updateOptions.human = human;
 		}
 
-		let dog = await ctx.dogs.findOneAndUpdate({ _id: id }, updateOptions, { new: true });
+		const dog = await ctx.dogs.findOneAndUpdate({ _id: id }, updateOptions, { new: true });
 		return dog;
 	},
 
 	async deleteDog(parent, args, ctx) {
-		let id = new Types.ObjectId(args.id);
-		let dog = await ctx.dogs.findByIdAndDelete(id);
+		const id = new Types.ObjectId(args.id);
+		const dog = await ctx.dogs.findByIdAndDelete(id);
 		return dog;
 	},
 };
