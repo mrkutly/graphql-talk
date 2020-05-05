@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon --exec babel-node src/start.js",
+		"start": "nodemon --exec babel-node src/start.js",
 		"build": "npx babel src --out-dir dist"
 	},
 	"repository": {
